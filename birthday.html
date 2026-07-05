@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>ARE YOU READY · happy birthday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #0a0303;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, #2f1414 0%, #0f0202 70%, #050101 100%);
+      animation: bgShift 14s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+      z-index: 0;
+    }
+
+    @keyframes bgShift {
+      0% { background: radial-gradient(ellipse at 40% 45%, #321717 0%, #0c0101 80%); }
+      50% { background: radial-gradient(ellipse at 60% 55%, #381a1a 0%, #080000 88%); }
+      100% { background: radial-gradient(ellipse at 48% 50%, #2b1212 0%, #0a0202 85%); }
+    }
+
+    /* INITIAL CONTENT */
+    .initial-content {
+      position: relative;
+      z-index: 20;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.9s ease;
+    }
+
+    .initial-content.hide {
+      opacity: 0;
+      transform: scale(0.85) translateY(-30px);
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .ready-text {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: clamp(2.5rem, 9vw, 6rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fae3d2;
+      line-height: 1.2;
+      text-shadow: 0 0 12px #e6a17e, 0 0 28px #c47a4a, 0 0 55px #a04a2a;
+      animation: intenseGlow 2s infinite alternate, majesticFloat 5s infinite ease-in-out;
+    }
+
+    .click-text {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1rem, 3.5vw, 1.6rem);
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #f7ddd0;
+      margin-top: 1.2rem;
+      padding: 0.8rem 2.2rem;
+      border: 2px solid rgba(210, 130, 90, 0.7);
+      border-radius: 50px;
+      background: rgba(30, 12, 8, 0.5);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: all 0.35s ease;
+      animation: buttonGlow 2.5s infinite alternate;
+      text-shadow: 0 0 15px #c8846a;
+      box-shadow: 0 0 22px rgba(190, 100, 50, 0.5);
+      text-decoration: none;
+    }
+
+    .click-text:hover {
+      background: rgba(60, 22, 12, 0.7);
+      border-color: rgba(235, 160, 100, 0.9);
+      box-shadow: 0 0 40px rgba(220, 120, 60, 0.8);
+      transform: scale(1.04);
+      color: #fff2e8;
+    }
+
+    .decoration {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.6rem, 2vw, 1.5rem);
+      margin: 1.2rem 0;
+      opacity: 0.85;
+    }
+
+    .line {
+      width: clamp(45px, 11vw, 100px);
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d49870, #f5bc8e, #d49870, transparent);
+      filter: drop-shadow(0 0 10px #c07040);
+      border-radius: 4px;
+    }
+
+    .diamond {
+      width: 13px;
+      height: 13px;
+      background: #e7b08a;
+      transform: rotate(45deg);
+      box-shadow: 0 0 22px #e09a5e;
+      animation: diamondPulse 2s infinite alternate;
+    }
+
+    /* HEART + LOADING WRAPPER */
+    .heart-wrapper {
+      position: absolute;
+      z-index: 25;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .heart-wrapper.show {
+      display: flex;
+    }
+
+    .heart-svg {
+      width: clamp(200px, 50vw, 400px);
+      height: auto;
+      filter: drop-shadow(0 0 25px #d94f4f) drop-shadow(0 0 50px #b0303a);
+      animation: heartGlow 1.8s infinite alternate, heartFloat 3s infinite ease-in-out;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.15s ease;
+    }
+
+    .heart-svg:active {
+      transform: scale(0.93);
+    }
+
+    .heart-path {
+      stroke: #e05a5a;
+      stroke-width: 4.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1500;
+      stroke-dashoffset: 1500;
+      animation: drawHeart 2.8s ease-in-out forwards;
+    }
+
+    .heart-fill {
+      fill: #c43a3a;
+      opacity: 0;
+      animation: fillHeart 1.2s ease-in-out 2s forwards;
+    }
+
+    /* Loading bar */
+    .loading-container {
+      width: clamp(190px, 42vw, 320px);
+      margin-top: 2.5rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      position: relative;
+    }
+
+    .loading-container.active {
+      opacity: 1;
+    }
+
+    .loading-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: rgba(70, 25, 18, 0.65);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    .loading-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #d94f4f, #f0a080, #d94f4f);
+      border-radius: 20px;
+      box-shadow: 0 0 25px #e05a5a;
+      transition: width 0.15s ease-out;
+    }
+
+    .loading-text {
+      text-align: center;
+      margin-top: 0.6rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f5c0a0;
+      letter-spacing: 0.2em;
+    }
+
+    /* Floating hearts from loading bar */
+    .floating-hearts {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 26;
+    }
+
+    .mini-heart {
+      position: absolute;
+      bottom: 0;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: floatUpHeart 1.2s ease-out forwards;
+      color: #f08080;
+      text-shadow: 0 0 10px #d94f4f;
+    }
+
+    @keyframes floatUpHeart {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.6);
+      }
+      40% {
+        opacity: 0.9;
+        transform: translateY(-40px) scale(1.1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-110px) scale(0.3);
+      }
+    }
+
+    .tap-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.8rem, 2.5vw, 1rem);
+      color: #d49870;
+      margin-top: 1rem;
+      letter-spacing: 0.25em;
+      animation: fadeDeco 2s infinite alternate;
+    }
+
+    /* BIRTHDAY CARD – smooth refined reveal */
+    .birthday-card {
+      position: absolute;
+      z-index: 30;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      width: min(93%, 600px);
+      max-height: 88vh;
+      background: rgba(18, 6, 6, 0.82);
+      backdrop-filter: blur(28px);
+      border-radius: clamp(28px, 6vw, 44px);
+      padding: clamp(1.8rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.8rem);
+      box-shadow: 0 35px 70px rgba(0,0,0,0.75), 0 0 0 2px rgba(220, 140, 90, 0.55), 0 0 90px rgba(210, 100, 60, 0.5);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(240, 155, 110, 0.35);
+      overflow-y: auto;
+      pointer-events: auto;
+    }
+
+    .birthday-card.reveal {
+      display: flex;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .card-crown {
+      font-size: clamp(2.2rem, 7vw, 3.8rem);
+      margin-bottom: 0.4rem;
+      filter: drop-shadow(0 0 18px #e6a17e);
+    }
+
+    .card-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.2rem, 11vw, 5.5rem);
+      color: #fadfcf;
+      text-shadow: 0 0 22px #c47a4a, 0 0 45px #a04a2a;
+      line-height: 1.1;
+      margin: 0.3rem 0;
+    }
+
+    .card-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3.8vw, 1.7rem);
+      color: #e7b08a;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 12px #b86a2c;
+    }
+
+    .card-message {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 3vw, 1.25rem);
+      color: #f0d8c8;
+      line-height: 1.8;
+      max-width: 440px;
+      margin: 0 auto 1.8rem;
+      background: rgba(60, 20, 15, 0.38);
+      padding: clamp(1rem, 3.5vw, 1.6rem) clamp(1.2rem, 4vw, 2.2rem);
+      border-radius: 26px;
+      border-left: 3px solid #d49870;
+      box-shadow: inset 0 0 25px rgba(180, 90, 50, 0.25);
+    }
+
+    .card-signature {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      color: #f5bc8e;
+      text-shadow: 0 0 20px #c07040;
+      margin-top: 0.4rem;
+    }
+
+    .close-hint {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #b08a7a;
+      letter-spacing: 0.22em;
+      cursor: pointer;
+      transition: 0.3s;
+      opacity: 0.7;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+    }
+
+    .close-hint:hover {
+      color: #f0c0a0;
+      opacity: 1;
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Animations */
+    @keyframes intenseGlow {
+      0% { text-shadow: 0 0 10px #e6a17e, 0 0 22px #c47a4a; }
+      100% { text-shadow: 0 0 18px #f5c5a2, 0 0 36px #d4945a; }
+    }
+    @keyframes majesticFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+    @keyframes buttonGlow {
+      0% { box-shadow: 0 0 18px rgba(190, 100, 50, 0.5); }
+      100% { box-shadow: 0 0 34px rgba(220, 120, 60, 0.8); }
+    }
+    @keyframes diamondPulse {
+      0% { box-shadow: 0 0 20px #e09a5e; transform: rotate(45deg) scale(1); }
+      100% { box-shadow: 0 0 38px #f5b07a; transform: rotate(45deg) scale(1.15); }
+    }
+    @keyframes fadeDeco { 0% { opacity: 0.45; } 100% { opacity: 0.95; } }
+    @keyframes drawHeart { to { stroke-dashoffset: 0; } }
+    @keyframes fillHeart { to { opacity: 1; } }
+    @keyframes heartGlow {
+      0% { filter: drop-shadow(0 0 22px #c94f4f) drop-shadow(0 0 45px #a0303a); }
+      100% { filter: drop-shadow(0 0 38px #e07070) drop-shadow(0 0 70px #c94f4f); }
+    }
+    @keyframes heartFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .birthday-card::-webkit-scrollbar {
+      width: 4px;
+    }
+    .birthday-card::-webkit-scrollbar-thumb {
+      background: rgba(210, 130, 90, 0.5);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="initial-content" id="initialContent">
+  <h1 class="ready-text">ARE YOU READY</h1>
+  <div class="decoration">
+    <span class="line"></span>
+    <span class="diamond"></span>
+    <span class="line"></span>
+  </div>
+  <a href="#" class="click-text" id="clickButton">CLICK TO HERE</a>
+</div>
+
+<div class="heart-wrapper" id="heartWrapper">
+  <svg class="heart-svg" id="heartSvg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+    <path class="heart-path" d="M100 165 C40 125, 0 100, 0 60 C0 20, 35 0, 60 0 C80 0, 95 15, 100 30 C105 15, 120 0, 140 0 C165 0, 200 20, 200 60 C200 100, 160 125, 100 165Z" stroke="#e05a5a" stroke-width="4.5" fill="none"/>
+    <path class="heart-fill" d="M100 165 C40 125, 0 100, 0 60 C0 20, 35 0, 60 0 C80 0, 95 15, 100 30 C105 15, 120 0, 140 0 C165 0, 200 20, 200 60 C200 100, 160 125, 100 165Z" fill="#c43a3a"/>
+  </svg>
+  <div class="loading-container" id="loadingContainer">
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="loading-bar-bg">
+      <div class="loading-bar-fill" id="loadingBarFill"></div>
+    </div>
+    <div class="loading-text" id="loadingText">0%</div>
+  </div>
+  <div class="tap-hint" id="tapHint">🖤 tap the heart 🖤</div>
+</div>
+
+<div class="birthday-card" id="birthdayCard">
+  <div class="card-crown">✨👑✨</div>
+  <h1 class="card-title">Happy Birthday</h1>
+  <p class="card-subtitle">my tuti</p>
+  <div class="card-message">
+    Aaj ka din sirf tumhare naam hai. Allah tumhari zindagi ko hamesha khushiyon, sehat aur kamyabi se bhar de. Har dua qabool ho aur har naya saal tumhare liye naye sapne aur nayi khushiyan lekar aaye. Ap ko bohat bohat mubarak ho!❤️✨
+  </div>
+  <div class="card-signature">Forever yours</div>
+  <div class="close-hint" id="closeCardHint">— tap to close —</div>
+</div>
+
+<canvas id="particleCanvas"></canvas>
+
+<script>
+  (function() {
+    const initialContent = document.getElementById('initialContent');
+    const clickButton = document.getElementById('clickButton');
+    const heartWrapper = document.getElementById('heartWrapper');
+    const heartSvg = document.getElementById('heartSvg');
+    const loadingContainer = document.getElementById('loadingContainer');
+    const loadingBarFill = document.getElementById('loadingBarFill');
+    const loadingText = document.getElementById('loadingText');
+    const floatingHearts = document.getElementById('floatingHearts');
+    const tapHint = document.getElementById('tapHint');
+    const birthdayCard = document.getElementById('birthdayCard');
+    const closeHint = document.getElementById('closeCardHint');
+
+    let heartVisible = false;
+    let cardVisible = false;
+    let loadingProgress = 0;
+    let tapCount = 0;
+    const TAPS_NEEDED = 12;
+
+    function resetHeartAnimation() {
+      const heartPath = heartWrapper.querySelector('.heart-path');
+      const heartFill = heartWrapper.querySelector('.heart-fill');
+      if (!heartPath || !heartFill) return;
+      heartPath.style.animation = 'none';
+      heartFill.style.animation = 'none';
+      void heartPath.offsetWidth;
+      heartPath.style.animation = 'drawHeart 2.8s ease-in-out forwards';
+      heartFill.style.animation = 'fillHeart 1.2s ease-in-out 2s forwards';
+    }
+
+    function spawnMiniHeart() {
+      const heart = document.createElement('span');
+      heart.className = 'mini-heart';
+      heart.textContent = ['❤️','🩷','💗','💖','🩵'][Math.floor(Math.random()*5)];
+      heart.style.left = Math.random() * 80 + 10 + '%';
+      heart.style.fontSize = (1 + Math.random() * 1.6) + 'rem';
+      heart.style.animationDuration = (0.9 + Math.random() * 1.2) + 's';
+      floatingHearts.appendChild(heart);
+      heart.addEventListener('animationend', () => heart.remove());
+    }
+
+    function updateLoading() {
+      const percent = Math.min(loadingProgress, 100);
+      loadingBarFill.style.width = percent + '%';
+      loadingText.textContent = Math.floor(percent) + '%';
+      
+      if (percent >= 100) {
+        heartWrapper.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.7s ease';
+        heartWrapper.style.opacity = '0';
+        heartWrapper.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        heartWrapper.style.filter = 'blur(10px)';
+        
+        setTimeout(() => {
+          heartWrapper.classList.remove('show');
+          heartWrapper.style.display = 'none';
+          heartWrapper.style.opacity = '1';
+          heartWrapper.style.transform = 'translate(-50%, -50%)';
+          heartWrapper.style.filter = 'none';
+          heartVisible = false;
+          
+          birthdayCard.classList.add('reveal');
+          cardVisible = true;
+        }, 700);
+      }
+    }
+
+    function handleHeartTap(e) {
+      e.stopPropagation();
+      if (!heartVisible || cardVisible) return;
+      
+      tapCount++;
+      loadingProgress = (tapCount / TAPS_NEEDED) * 100;
+      
+      if (tapCount === 1) {
+        loadingContainer.classList.add('active');
+        tapHint.style.opacity = '0';
+      }
+      
+      // Spawn floating hearts from loading bar
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => spawnMiniHeart(), i * 40);
+      }
+      
+      updateLoading();
+      
+      heartSvg.style.transform = 'scale(0.9)';
+      setTimeout(() => { heartSvg.style.transform = ''; }, 130);
+      
+      if (loadingProgress >= 100) {
+        loadingProgress = 100;
+        updateLoading();
+      }
+    }
+
+    clickButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (heartVisible || cardVisible) return;
+      
+      initialContent.classList.add('hide');
+      
+      setTimeout(() => {
+        heartWrapper.classList.add('show');
+        heartVisible = true;
+        resetHeartAnimation();
+        tapCount = 0;
+        loadingProgress = 0;
+        loadingBarFill.style.width = '0%';
+        loadingText.textContent = '0%';
+        loadingContainer.classList.remove('active');
+        tapHint.style.opacity = '1';
+        floatingHearts.innerHTML = '';
+      }, 600);
+    });
+
+    heartSvg.addEventListener('click', handleHeartTap);
+
+    function closeBirthdayCard() {
+      if (!cardVisible) return;
+      birthdayCard.style.transition = 'opacity 0.55s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      birthdayCard.style.opacity = '0';
+      birthdayCard.style.transform = 'translate(-50%, -50%) scale(0.85)';
+      
+      setTimeout(() => {
+        birthdayCard.classList.remove('reveal');
+        birthdayCard.style.opacity = '1';
+        birthdayCard.style.transform = 'translate(-50%, -50%) scale(0.7)';
+        cardVisible = false;
+        
+        initialContent.classList.remove('hide');
+        initialContent.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.8s ease';
+        initialContent.style.opacity = '1';
+        initialContent.style.transform = 'scale(1) translateY(0)';
+        initialContent.style.filter = 'blur(0)';
+      }, 550);
+    }
+
+    closeHint.addEventListener('click', closeBirthdayCard);
+    document.addEventListener('click', function(e) {
+      if (!cardVisible) return;
+      if (!birthdayCard.contains(e.target) && e.target !== heartSvg && !heartWrapper.contains(e.target)) {
+        closeBirthdayCard();
+      }
+    });
+
+    // Particle canvas
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    class Particle {
+      constructor() {
+        this.reset(true);
+      }
+      reset(randomY = false) {
+        this.x = Math.random() * width;
+        this.y = randomY ? Math.random() * height : height + 10;
+        this.radius = Math.random() * 2.5 + 0.6;
+        const hue = 18 + Math.random() * 24;
+        this.color = `hsla(${hue}, 55%, 62%, ${Math.random() * 0.7 + 0.2})`;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = -0.25 - Math.random() * 0.75;
+        this.life = Math.random() * 290 + 160;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life -= 0.7;
+        if (this.life <= 0 || this.x < -25 || this.x > width+25 || this.y < -25 || this.y > height+25) {
+          this.reset();
+          this.y = height + Math.random() * 20;
+        }
+      }
+      draw(ctx) {
+        const alpha = Math.min(this.life / 290, 0.9) * 0.7;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.fillStyle = this.color.replace(/[\d\.]+\)$/g, `${alpha})`).replace('hsla', 'hsla');
+        ctx.shadowColor = 'rgba(210, 110, 60, 0.5)';
+        ctx.shadowBlur = 13;
+        ctx.fill();
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    function initParticles(count = 88) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        const p = new Particle();
+        p.y = Math.random() * height;
+        particles.push(p);
+      }
+    }
+
+    function animateParticles() {
+      if (!canvas || !ctx) return;
+      ctx.clearRect(0, 0, width, height);
+      for (let p of particles) { p.update(); p.draw(ctx); }
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      particles.forEach(p => {
+        p.x = Math.min(width, Math.max(0, p.x));
+        p.y = Math.min(height, Math.max(0, p.y));
+      });
+    });
+
+    resizeCanvas();
+    initParticles(88);
+    animateParticles();
+  })();
+</script>
+</body>
+</html>
